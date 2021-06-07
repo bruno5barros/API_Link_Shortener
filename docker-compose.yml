@@ -4,8 +4,8 @@ services:
   app:
     build:
       context: .
-    ports:
-      - "8000:8000"
+    expose:
+      - 8000
     volumes:
       - ./app:/app
     command: >
@@ -26,3 +26,10 @@ services:
       - POSTGRES_DB=app
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=supersecretpassword
+
+  nginx:
+    build: ./nginx
+    ports:
+      - 1337:80
+    depends_on:
+      - app
