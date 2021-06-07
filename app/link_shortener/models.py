@@ -5,7 +5,7 @@ import random
 
 class LinkShortener(models.Model):
     full_link = models.TextField(unique=True, null=False, blank=False)
-    hash_link = models.TextField(unique=True, null=False, blank=False)
+    hash = models.TextField(unique=True, null=False, blank=False)
 
     def link_shortener(self):
         """Create a random string to create a shorter link"""
@@ -15,13 +15,14 @@ class LinkShortener(models.Model):
         while True:
             new_shorter_link = ''.join(random.choices(s, k=N))
 
-            if not LinkShortener.objects.filter(hash_link=new_shorter_link).exists():
+            if not LinkShortener.objects.filter(
+                    hash=new_shorter_link).exists():
                 break
 
         return new_shorter_link
 
     def save(self, *args, **kwargs):
-        self.hash_link = self.link_shortener()
+        self.hash = self.link_shortener()
 
         return super().save(*args, **kwargs)
 
