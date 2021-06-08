@@ -1,7 +1,6 @@
 from rest_framework import viewsets, status
 from link_shortener.models import LinkShortener
 from link_shortener import serializers
-from django.views import View
 from django.shortcuts import redirect
 from rest_framework.response import Response
 from rest_framework.views import APIView
